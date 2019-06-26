@@ -1,24 +1,40 @@
-# README
+# CMS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
 
-Things you may want to cover:
+JSON API for a CMS, it has Users, and every user have articles.
 
-* Ruby version
+## Usege
 
-* System dependencies
+```
+GET    /users
+POST   /users
+GET    /users/:id
+PATCH  /users/:id
+DELETE /users/:id
 
-* Configuration
+GET    /articles
+POST   /articles
+GET    /articles/:id
+PATCH  /articles/:id
+DELETE /articles/:id
+```
 
-* Database creation
+## Dependencies
 
-* Database initialization
+* Ruby 2.6.3
+* Rails 5.2.3
+* Postgres 9.4
+* NodeJs
 
-* How to run the test suite
+## To Install
 
-* Services (job queues, cache servers, search engines, etc.)
+* `bundle install`
+* `rails db:create db:migrate`
+* `rails server -b 0.0.0.0 -p 3000`
 
-* Deployment instructions
+P.S. You can user Docker; The Docker file and Docker Compose provided.
 
-* ...
+## To run Tests
+
+* `bundle exec rspec`
