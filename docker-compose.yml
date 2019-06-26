@@ -1,0 +1,37 @@
+version: '2.0'
+
+services:
+
+  cms-api:
+    build: .
+    hostname: "cms-api"
+    container_name: "cms-api"
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - cms-db
+    ports:
+      - 3000:3000
+    environment:
+      PGHOST: "cms-db"
+      PGPORT: "5432"
+      PGUSER: "postgres"
+      PGPASSWORD: "postgres"
+
+  cms-db:
+    image: postgres:9.4.21-alpine
+    hostname: "cms-db"
+    container_name: "cms-db"
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - cms-db-data:/var/lib/postgresql/data
+      - cms-db-logs:/var/log/postgresql
+
+volumes:
+  cms-db-data:
+  cms-db-logs:
