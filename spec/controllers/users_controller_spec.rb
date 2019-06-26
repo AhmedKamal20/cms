@@ -4,9 +4,11 @@ RSpec.describe UsersController, type: :controller do
   describe "GET index" do
     it "list users" do
       user = create(:user)
+      serializer = UserSerializer.new(user)
       get :index
 
-      expect(response.body).to eq([user.attributes].to_json)
+      expect(JSON.parse(response.body).count).to eq(1)
+      expect(JSON.parse(response.body)).to eq([JSON.parse(serializer.to_json)])
       expect(response.status).to eq(200)
     end
   end
@@ -14,9 +16,10 @@ RSpec.describe UsersController, type: :controller do
   describe "GET show" do
     it "show user data" do
       user = create(:user)
+      serializer = UserSerializer.new(user)
       get :show, params: { id: user.id }
 
-      expect(response.body).to eq(user.attributes.to_json)
+      expect(response.body).to eq(serializer.to_json)
       expect(response.status).to eq(200)
     end
   end
